@@ -1,24 +1,200 @@
-<ion-header><ion-toolbar color="primary"><ion-title>Registro de estudiantes</ion-title></ion-toolbar></ion-header>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Registro de Candidatos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding">
   <ion-card>
-    <ion-card-header><ion-card-title>Nuevo estudiante</ion-card-title></ion-card-header>
-    <ion-card-content>
-      <ion-item><ion-input label="Nombre" labelPlacement="stacked" placeholder="Ingrese su nombre" [(ngModel)]="nombres"></ion-input></ion-item>
-      <ion-item><ion-input label="Correo electrónico" labelPlacement="stacked" type="email" placeholder="correo@ejemplo.com" [(ngModel)]="correo"></ion-input></ion-item>
-      <ion-item><ion-input label="Fecha de nacimiento" labelPlacement="stacked" type="date" placeholder="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"></ion-input></ion-item>
-      <ion-item><ion-input label="Cargo" labelPlacement="stacked" placeholder="Ingrese su cargo" [(ngModel)]="cargo"></ion-input></ion-item>
-      <ion-item><ion-input label="Nivel académico" labelPlacement="stacked" placeholder="Ingrese su nivel académico" [(ngModel)]="nivelAcademico"></ion-input></ion-item>
-      <ion-item><ion-input label="Años de experiencia" labelPlacement="stacked" type="number" placeholder="Ingrese sus años de experiencia" [(ngModel)]="experienciaAnios"></ion-input></ion-item>
-      <ion-item><ion-input label="Modalidad" labelPlacement="stacked" placeholder="Ingrese su modalidad" [(ngModel)]="modalidad"></ion-input></ion-item>
-      <ion-item><ion-input label="Habilidades" labelPlacement="stacked" placeholder="Ingrese sus habilidades separadas por comas" [(ngModel)]="habilidadesString"></ion-input></ion-item>
-      <ion-item><ion-input label="Fecha de disponibilidad" labelPlacement="stacked" type="date" placeholder="YYYY-MM-DD" [(ngModel)]="fechaDisponibilidad"></ion-input></ion-item>
-      <ion-item><ion-input label="Aspiración salarial" labelPlacement="stacked" type="number" placeholder="Ingrese su aspiración salarial" [(ngModel)]="aspiracionSalarial"></ion-input></ion-item>
-      <ion-item><ion-textarea label="Resumen" labelPlacement="stacked" placeholder="Ingrese un resumen de su perfil" [(ngModel)]="resumen"></ion-textarea></ion-item>
-      <ion-item><ion-checkbox slot="start" [(ngModel)]="consentimiento"></ion-checkbox><ion-label>Acepto los términos y condiciones</ion-label></ion-item>
+    <ion-card-header>
+      <ion-card-title>Nuevo candidato</ion-card-title>
+    </ion-card-header>
 
-      <ion-button expand="block" class="ion-margin-top" [disabled]="guardando" (click)="guardar()">{{ guardando ? 'Guardando...' : 'Guardar estudiante' }}</ion-button>
-      <p *ngIf="mensaje" role="status">{{ mensaje }}</p>
+    <ion-card-content>
+      <!-- Datos personales -->
+      <ion-list lines="full">
+        <ion-item>
+          <ion-input
+            label="Nombres"
+            labelPlacement="stacked"
+            placeholder="Ingrese sus nombres"
+            [(ngModel)]="nombres">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            label="Correo electrónico"
+            labelPlacement="stacked"
+            type="email"
+            placeholder="correo@ejemplo.com"
+            [(ngModel)]="correo">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            label="Teléfono"
+            labelPlacement="stacked"
+            type="tel"
+            maxlength="10"
+            placeholder="0990000000"
+            [(ngModel)]="telefono">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            label="Fecha de nacimiento"
+            labelPlacement="stacked"
+            type="date"
+            [(ngModel)]="fechaNacimiento">
+          </ion-input>
+        </ion-item>
+
+        <!-- Datos profesionales -->
+        <ion-item>
+          <ion-select
+            label="Cargo"
+            labelPlacement="stacked"
+            placeholder="Seleccione un cargo"
+            interface="popover"
+            [(ngModel)]="cargo">
+            @for (c of cargos; track c) {
+              <ion-select-option [value]="c">{{ c }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-select
+            label="Nivel académico"
+            labelPlacement="stacked"
+            placeholder="Seleccione su nivel académico"
+            interface="popover"
+            [(ngModel)]="nivelAcademico">
+            @for (n of niveles; track n) {
+              <ion-select-option [value]="n">{{ n }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            label="Años de experiencia"
+            labelPlacement="stacked"
+            type="number"
+            min="0"
+            placeholder="Ej: 3"
+            [(ngModel)]="experienciaAnios">
+          </ion-input>
+        </ion-item>
+      </ion-list>
+
+      <!-- Modalidad: un ion-item por cada radio -->
+      <ion-list lines="none">
+        <ion-radio-group [(ngModel)]="modalidad">
+          <ion-list-header>
+            <ion-label>Modalidad</ion-label>
+          </ion-list-header>
+          @for (m of modalidades; track m) {
+            <ion-item>
+              <ion-radio [value]="m" labelPlacement="end" justify="start">{{ m }}</ion-radio>
+            </ion-item>
+          }
+        </ion-radio-group>
+      </ion-list>
+
+      <ion-list lines="full">
+        <!-- Habilidades: select múltiple, devuelve un arreglo -->
+        <ion-item>
+          <ion-select
+            label="Habilidades"
+            labelPlacement="stacked"
+            placeholder="Seleccione una o varias"
+            [multiple]="true"
+            cancelText="Cancelar"
+            okText="Aceptar"
+            [(ngModel)]="habilidades">
+            @for (h of listaHabilidades; track h) {
+              <ion-select-option [value]="h">{{ h }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            label="Fecha de disponibilidad"
+            labelPlacement="stacked"
+            type="date"
+            [(ngModel)]="fechaDisponibilidad">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            label="Aspiración salarial (USD)"
+            labelPlacement="stacked"
+            type="number"
+            min="0"
+            placeholder="Ej: 1200"
+            [(ngModel)]="aspiracionSalarial">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-textarea
+            label="Resumen"
+            labelPlacement="stacked"
+            placeholder="Describa brevemente su perfil"
+            [autoGrow]="true"
+            [(ngModel)]="resumen">
+          </ion-textarea>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-checkbox [(ngModel)]="consentimiento" labelPlacement="end" justify="start">
+            Acepto el tratamiento de mis datos
+          </ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+      <ion-button
+        expand="block"
+        class="ion-margin-top"
+        [disabled]="guardando"
+        (click)="guardar()">
+        {{ guardando ? 'Guardando...' : 'Guardar candidato' }}
+      </ion-button>
+
+      @if (mensaje) {
+        <p role="status" class="ion-text-center">{{ mensaje }}</p>
+      }
     </ion-card-content>
   </ion-card>
-  
+
+  <!-- Lista de candidatos guardados -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Candidatos registrados</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      @if (candidatos.length === 0) {
+        <p>Aún no hay candidatos registrados.</p>
+      } @else {
+        <ion-list>
+          @for (c of candidatos; track c.id) {
+            <ion-item>
+              <ion-label>
+                <h2>{{ c.nombres }}</h2>
+                <p>{{ c.cargo }} · {{ c.modalidad }} · {{ c.experienciaAnios }} años</p>
+                <p>{{ c.correo }}</p>
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+    </ion-card-content>
+  </ion-card>
 </ion-content>

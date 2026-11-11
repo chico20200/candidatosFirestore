@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   "correo": "ana.ejemplo@correo.test",
   "telefono": "0990000000",
   "fechaNacimiento": "2000-04-15",
-  "cargo": "Desarrollador móvil",
+  "cargo": "Desarrollador móvil", ---> Lista "Desarrollador Movil", "Desarrollador Web", "Diseñador UX/UI", "Analista de Datos", "Ingeniero de Software"
   "nivelAcademico": "Tercer nivel",
   "experienciaAnios": 3,
   "modalidad": "Híbrida",
@@ -20,12 +20,23 @@ import { environment } from '../../environments/environment';
   "consentimiento": true
 }
 */
+
+export const CARGOS = [
+  "Desarrollador Movil",
+  "Desarrollador Web",
+  "Diseñador UX/UI",
+  "Analista de Datos",
+  "Ingeniero de Software"
+] as const;
+
+export type CargoDisponible = typeof CARGOS[number];
+
 export interface Candidato {
   nombres: string,
   correo: string,
   telefono: string,
   fechaNacimiento: string,
-  cargo: string,
+  cargo: CargoDisponible,
   nivelAcademico: string,
   experienciaAnios: number,
   modalidad: string,

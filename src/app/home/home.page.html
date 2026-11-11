@@ -3,13 +3,22 @@
   <ion-card>
     <ion-card-header><ion-card-title>Nuevo estudiante</ion-card-title></ion-card-header>
     <ion-card-content>
-      <ion-item><ion-input label="Nombre" labelPlacement="stacked" placeholder="Ingrese su nombre" [(ngModel)]="nombre"></ion-input></ion-item>
+      <ion-item><ion-input label="Nombre" labelPlacement="stacked" placeholder="Ingrese su nombre" [(ngModel)]="nombres"></ion-input></ion-item>
       <ion-item><ion-input label="Correo electrónico" labelPlacement="stacked" type="email" placeholder="correo@ejemplo.com" [(ngModel)]="correo"></ion-input></ion-item>
-      <ion-item><ion-input label="Edad" labelPlacement="stacked" type="number" placeholder="Ingrese su edad" [(ngModel)]="edad"></ion-input></ion-item>
+      <ion-item><ion-input label="Fecha de nacimiento" labelPlacement="stacked" type="date" placeholder="YYYY-MM-DD" [(ngModel)]="fechaNacimiento"></ion-input></ion-item>
+      <ion-item><ion-input label="Cargo" labelPlacement="stacked" placeholder="Ingrese su cargo" [(ngModel)]="cargo"></ion-input></ion-item>
+      <ion-item><ion-input label="Nivel académico" labelPlacement="stacked" placeholder="Ingrese su nivel académico" [(ngModel)]="nivelAcademico"></ion-input></ion-item>
+      <ion-item><ion-input label="Años de experiencia" labelPlacement="stacked" type="number" placeholder="Ingrese sus años de experiencia" [(ngModel)]="experienciaAnios"></ion-input></ion-item>
+      <ion-item><ion-input label="Modalidad" labelPlacement="stacked" placeholder="Ingrese su modalidad" [(ngModel)]="modalidad"></ion-input></ion-item>
+      <ion-item><ion-input label="Habilidades" labelPlacement="stacked" placeholder="Ingrese sus habilidades separadas por comas" [(ngModel)]="habilidadesString"></ion-input></ion-item>
+      <ion-item><ion-input label="Fecha de disponibilidad" labelPlacement="stacked" type="date" placeholder="YYYY-MM-DD" [(ngModel)]="fechaDisponibilidad"></ion-input></ion-item>
+      <ion-item><ion-input label="Aspiración salarial" labelPlacement="stacked" type="number" placeholder="Ingrese su aspiración salarial" [(ngModel)]="aspiracionSalarial"></ion-input></ion-item>
+      <ion-item><ion-textarea label="Resumen" labelPlacement="stacked" placeholder="Ingrese un resumen de su perfil" [(ngModel)]="resumen"></ion-textarea></ion-item>
+      <ion-item><ion-checkbox slot="start" [(ngModel)]="consentimiento"></ion-checkbox><ion-label>Acepto los términos y condiciones</ion-label></ion-item>
+
       <ion-button expand="block" class="ion-margin-top" [disabled]="guardando" (click)="guardar()">{{ guardando ? 'Guardando...' : 'Guardar estudiante' }}</ion-button>
       <p *ngIf="mensaje" role="status">{{ mensaje }}</p>
     </ion-card-content>
   </ion-card>
-  <h2>Estudiantes registrados</h2>
-  <ion-list><ion-item *ngFor="let estudiante of estudiantes"><ion-label><h2>{{ estudiante.nombre }}</h2><p>{{ estudiante.correo }}</p><p>Edad: {{ estudiante.edad }}</p></ion-label></ion-item></ion-list>
+  
 </ion-content>

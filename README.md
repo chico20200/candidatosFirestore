@@ -63,3 +63,4 @@ También puedes instalar Ionic CLI (`npm install -g @ionic/cli`) y ejecutar `ion
 ## Actividad de ampliación
 
 Agregar los campos `carrera` y `semestre`, guardarlos en Firestore y mostrarlos en la lista.
+# candidatosFirestore

@@ -3,7 +3,8 @@ import { provideRouter } from '@angular/router';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { AppComponent } from './app/app.component';
 import { HomePage } from './app/home/home.page';
+import { routes } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideIonicAngular(), provideRouter([{ path: '', component: HomePage }])]
+  providers: [provideIonicAngular(), provideRouter(routes)]
 }).catch(console.error);

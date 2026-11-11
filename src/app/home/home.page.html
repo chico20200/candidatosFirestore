@@ -173,28 +173,4 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Lista de candidatos guardados -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Candidatos registrados</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      @if (candidatos.length === 0) {
-        <p>Aún no hay candidatos registrados.</p>
-      } @else {
-        <ion-list>
-          @for (c of candidatos; track c.id) {
-            <ion-item>
-              <ion-label>
-                <h2>{{ c.nombres }}</h2>
-                <p>{{ c.cargo }} · {{ c.modalidad }} · {{ c.experienciaAnios }} años</p>
-                <p>{{ c.correo }}</p>
-              </ion-label>
-            </ion-item>
-          }
-        </ion-list>
-      }
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+ 

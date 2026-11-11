@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import {
   IonHeader,
   IonToolbar,
@@ -35,6 +36,7 @@ import {
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   imports: [
+    DatePipe,
     FormsModule,
     IonHeader,
     IonToolbar,
@@ -84,13 +86,14 @@ export class HomePage implements OnInit {
   aspiracionSalarial: number | null = null;
   resumen = '';
   consentimiento = false;
+  fechaRegistro: Date | null = null;
 
   candidatos: (Candidato & { id: string })[] = [];
   guardando = false;
   mensaje = '';
 
   async ngOnInit() {
-    await this.cargarCandidatos();
+    
   }
 
   /** Devuelve un mensaje de error, o null si todo está bien. */
@@ -139,7 +142,6 @@ export class HomePage implements OnInit {
       });
       this.limpiar();
       this.mensaje = 'Candidato guardado correctamente.';
-      await this.cargarCandidatos();
     } catch (error) {
       console.error(error);
       this.mensaje = 'No se pudo guardar. Revise la configuración y las reglas de Firestore.';
@@ -164,6 +166,7 @@ export class HomePage implements OnInit {
     this.consentimiento = false;
   }
 
+  /*
   async cargarCandidatos() {
     try {
       this.candidatos = await this.firebase.obtenerCandidatos();
@@ -172,4 +175,6 @@ export class HomePage implements OnInit {
       this.mensaje = 'No se pudo consultar Firestore. Revise la configuración.';
     }
   }
+    
+  */
 }

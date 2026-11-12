@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle del candidato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (cargando) {
+    <div class="ion-text-center"><ion-spinner></ion-spinner></div>
+  } @else if (candidato) {
+    <h1>{{ candidato.nombres }}</h1>
+    <ion-list lines="full">
+      <ion-item><ion-label><p>Correo</p><h3>{{ candidato.correo }}</h3></ion-label></ion-item>
+      <ion-item><ion-label><p>Teléfono</p><h3>{{ candidato.telefono }}</h3></ion-label></ion-item>
+      <ion-item><ion-label><p>Fecha de nacimiento</p><h3>{{ candidato.fechaNacimiento }}</h3></ion-label></ion-item>
+      <ion-item><ion-label><p>Cargo</p><h3>{{ candidato.cargo }}</h3></ion-label></ion-item>
+      <ion-item><ion-label><p>Nivel académico</p><h3>{{ candidato.nivelAcademico }}</h3></ion-label></ion-item>
+      <ion-item><ion-label><p>Experiencia</p><h3>{{ candidato.experienciaAnios }} años</h3></ion-label></ion-item>
+      <ion-item><ion-label><p>Modalidad</p><h3>{{ candidato.modalidad }}</h3></ion-label></ion-item>
+      <ion-item>
+        <ion-label>
+          <p>Habilidades</p>
+          @for (h of candidato.habilidades; track h) { <ion-chip>{{ h }}</ion-chip> }
+        </ion-label>
+      </ion-item>
+      <ion-item><ion-label><p>Disponible desde</p><h3>{{ candidato.fechaDisponibilidad }}</h3></ion-label></ion-item>
+      <ion-item><ion-label><p>Aspiración salarial</p><h3>{{ candidato.aspiracionSalarial | currency:'USD' }}</h3></ion-label></ion-item>
+      <ion-item><ion-label class="ion-text-wrap"><p>Resumen</p><h3>{{ candidato.resumen }}</h3></ion-label></ion-item>
+      @if (candidato.fechaRegistro) {
+        <ion-item><ion-label><p>Registrado</p><h3>{{ candidato.fechaRegistro.toDate() | date:'dd/MM/yyyy HH:mm' }}</h3></ion-label></ion-item>
+      }
+    </ion-list>
+  } @else {
+    <p>{{ mensaje }}</p>
+  }
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import {
   IonHeader,
   IonToolbar,
@@ -36,7 +36,7 @@ import {
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   imports: [
-    DatePipe,
+    RouterLink,
     FormsModule,
     IonHeader,
     IonToolbar,

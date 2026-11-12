@@ -1,6 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>candidatos</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Candidatos</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +22,8 @@
           @for (c of candidatos; track c.id) {
             <ion-item>
               <ion-label>
-                <h2>{{ c.nombres }}</h2>
+                <ion-item [routerLink]="['/candidato-details', c.id]" detail="true"><h2>{{ c.nombres }}</h2></ion-item>
+                
                 <p>{{ c.cargo }} · {{ c.modalidad }} · {{ c.experienciaAnios }} años</p>
                 <p>{{ c.correo }}</p>
                 @if (c.fechaRegistro) {

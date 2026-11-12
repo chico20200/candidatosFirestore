@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import { 
   addDoc, 
+  doc,
+  getDoc,
   collection, 
   getDocs, 
   getFirestore,
   serverTimestamp, 
   Timestamp, 
   query, 
-  orderBy 
+  orderBy, 
 } from 'firebase/firestore';
 
 import { environment } from '../../environments/environment';
@@ -74,5 +76,19 @@ export class FirebaseService {
     const q = query(collection(this.db, 'candidatos'), orderBy('fechaRegistro', 'desc'));
     const resultado = await getDocs(q);
     return resultado.docs.map(doc => ({ id: doc.id, ...(doc.data() as Candidato) }));
+  }
+
+  async obtenerCandidatoPorId(id: string): Promise<CandidatoGuardado | null> {
+
+    const docRef = doc(this.db, 'candidatos', id);
+    const snapshot = await getDoc(docRef);
+    
+    if (!snapshot.exists()) {
+    return null; // no existe un candidato con ese id
+  }
+    return {
+    id: snapshot.id,
+    ...(snapshot.data() as Omit<CandidatoGuardado, 'id'>),
+  };
   }
 }
